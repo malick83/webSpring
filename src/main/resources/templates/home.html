@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Spring-Boot</title>
+</head>
+<body>
+	<h2 class="h2" style="text-align: center; margin-top: 0px;">Liste des employées</h2>
+	
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{/createEmployee}">Ajouter un employée</a>
+				<a class="navbar-brand" th:href="@{/}">Système de gestion des employées</a>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container" style="margin-top: 80px">
+		<div class="row">
+			<div class="col col-xs-2">
+				<table class="table mb-12 table-striped table-bordered"
+					style="text-align: center; margin-top: 0px;">
+					<thead>
+						<tr>
+							<th>Prénom</th>
+							<th>Nom</th>
+							<th>Détails</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${employees.empty}">
+							<td colspan="3">Aucun employée en base de données</td>
+						</tr>
+						<tr th:each="employee: ${employees}">
+							<td><span th:text="${employee.firstName}"> Prénom </span></td>
+							<td><span th:text="${employee.lastName}"> Nom </span></td>
+							<td><a class="btn btn-danger"
+								onclick="return confirm('Voulez-vous vraiment supprimer l\'entreprise ?');"
+								th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Supprimer</a>
+								<a class="btn btn-success" th:href="@{/updateEmployee/{id}(id=${employee.id})}">Modifier</a>
+								<a class="btn btn-info" th:href="@{/getEmployee/{id}(id=${employee.id})}">Voir plus</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
